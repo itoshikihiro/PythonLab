@@ -21,86 +21,87 @@ import pandas as pd
 import matplotlib.pyplot as plt 
 from matplotlib import style
 
-if __name__ == '__main__':
 
-	# # read files and pd will automatically analyze it
-	# seqs = pd.read_csv('./csvfiles/GenbankStats.csv');
+def plotLineChart():
+	# read files and pd will automatically analyze it
+	seqs = pd.read_csv('./csvfiles/GenbankStats.csv');
 
-	# #print the Date column
-	# print(seqs.loc[:,['Date']]);
-	# #similiar with the following commend. This one has no column name
-	# print(seqs.Date);
+	#print the Date column
+	print(seqs.loc[:,['Date']]);
+	#similiar with the following commend. This one has no column name
+	print(seqs.Date);
 
-	# #format Date column into yyyy-mm-dd
-	# seqs.Date = pd.to_datetime(seqs.Date, infer_datetime_format=True)
-	# print(seqs.loc[:,['Date']])
+	#format Date column into yyyy-mm-dd
+	seqs.Date = pd.to_datetime(seqs.Date, infer_datetime_format=True)
+	print(seqs.loc[:,['Date']])
 
-	# #replace index with Date
-	# seqs.set_index('Date', inplace=True)
-	# print(seqs.index)
+	#replace index with Date
+	seqs.set_index('Date', inplace=True)
+	print(seqs.index)
 
-	# # summed_bases_data=seqs['Bases'].resample('A').sum()
-	# # print(summed_bases_data)
+	# summed_bases_data=seqs['Bases'].resample('A').sum()
+	# print(summed_bases_data)
 
-	# summed_sequences_data=seqs['Sequences'].resample('A').sum()
-	# print(summed_sequences_data)
+	summed_sequences_data=seqs['Sequences'].resample('A').sum()
+	print(summed_sequences_data)
 
-	# #font family ['normal'] not found
-	# #set up fonts for the text on the plot
-	# font = {'family' : 'normal',
-	# 	    'weight' : 'bold',
-	# 	    'size'   : 24};
-	# plt.rc('font',**font);
+	#font family ['normal'] not found
+	#set up fonts for the text on the plot
+	font = {'family' : 'normal',
+		    'weight' : 'bold',
+		    'size'   : 24};
+	plt.rc('font',**font);
 
-	# # plot the summed data, also can change color from red to any other colors
-	# #ax=summed_data.plot(color='r');
-	# ax=summed_sequences_data.plot(color='b');
+	# plot the summed data, also can change color from red to any other colors
+	#ax=summed_data.plot(color='r');
+	ax=summed_sequences_data.plot(color='b');
 
-	# # set scientific notation off on the y axis
-	# ax.get_yaxis().get_major_formatter().set_scientific(False);
+	# set scientific notation off on the y axis
+	ax.get_yaxis().get_major_formatter().set_scientific(False);
 
-	# # set the plot title
-	# ax.set_title('Genbank Annual Sequence Submissions')
+	# set the plot title
+	ax.set_title('Genbank Annual Sequence Submissions')
 
-	# #some questions at here
-	# 	#why it is plt.show(), but not ax.show()
-	# # set to print the legend and draw
-	# plt.legend()
-	# plt.show()
-
-
-	# #show a bar graph
-	# # Read the data into a dataframe using Pandas
-	# medData=pd.read_csv('./csvfiles/processed.cleveland.data.csv')
-	# medDataDf = pd.DataFrame(medData)
-	# print(medDataDf)
-
-	# #Group people into Age-groups using bins. The arange function in numpy takes 
-	# # the start and end of the range and increment as arguments to create bins
-	# bins =  np.arange(20,90,10)
-	# # set the bin labels
-	# binLabels = ['21-30','31-40', '41-50', '51-60', '61-70', '71-80']
-	# # the cut function slices the Age column data and assigns them to the 
-	# # appropriate bins. This is grouped and size of each group is determined and 
-	# # saved 'patient_count'
-	# binData=medDataDf.groupby(pd.cut(medDataDf['Age'], bins=bins, labels=binLabels)).size().reset_index(name='patient_count')
-
-	# #Set up Fonts for the text on the plot
-	# font = {'family' : 'normal',
-	#    'weight' : 'bold',
-	#     'size'   : 24}
-	# plt.rc('font', **font)
-
-	# # set up the binned data and plot a bar graph
-	# barPlot = binData.plot.bar(rot=0, color="b", figsize=(12,8))
-	# barPlot.set_xticklabels(binLabels) # set x tick labels
-	# barPlot.set_ylabel('Number of Patients', labelpad=15) # set y label
-
-	# plt.legend();
-	# plt.show();
+	#some questions at here
+		#why it is plt.show(), but not ax.show()
+	# set to print the legend and draw
+	plt.legend()
+	plt.show()
 
 
 
+def plotBarChart():
+	#show a bar graph
+	# Read the data into a dataframe using Pandas
+	medData=pd.read_csv('./csvfiles/processed.cleveland.data.csv')
+	medDataDf = pd.DataFrame(medData)
+	print(medDataDf)
+
+	#Group people into Age-groups using bins. The arange function in numpy takes 
+	# the start and end of the range and increment as arguments to create bins
+	bins =  np.arange(20,90,10)
+	# set the bin labels
+	binLabels = ['21-30','31-40', '41-50', '51-60', '61-70', '71-80']
+	# the cut function slices the Age column data and assigns them to the 
+	# appropriate bins. This is grouped and size of each group is determined and 
+	# saved 'patient_count'
+	binData=medDataDf.groupby(pd.cut(medDataDf['Age'], bins=bins, labels=binLabels)).size().reset_index(name='patient_count')
+
+	#Set up Fonts for the text on the plot
+	font = {'family' : 'normal',
+	   'weight' : 'bold',
+	    'size'   : 24}
+	plt.rc('font', **font)
+
+	# set up the binned data and plot a bar graph
+	barPlot = binData.plot.bar(rot=0, color="b", figsize=(12,8))
+	barPlot.set_xticklabels(binLabels) # set x tick labels
+	barPlot.set_ylabel('Number of Patients', labelpad=15) # set y label
+
+	plt.legend();
+	plt.show();
+
+def plotHistogrm():
 	# Read in the data into a dataframe
 	medData=pd.read_csv('./csvfiles/processed.cleveland.data.csv')
 	medDataDf = pd.DataFrame(medData)
@@ -138,3 +139,16 @@ if __name__ == '__main__':
 
 	plt.legend();
 	plt.show();
+
+
+if __name__ == '__main__':
+
+	plotLineChart();
+	plotBarChart();
+	plotHistogrm();
+
+	
+
+
+
+	
